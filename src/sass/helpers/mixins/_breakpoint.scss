@@ -1,0 +1,57 @@
+@use "sass:string";
+
+@mixin breakpoint($pointOne, $pointTwo: null) {
+  $directionPO: string.slice($pointOne, 1, 1);
+  $pointOne: string.slice($pointOne, 2, -1);
+
+  $directionPT: null !default;
+
+  @if ($pointTwo) {
+    $directionPT: string.slice($pointTwo, 1, 1);
+    $pointTwo: string.slice($pointTwo, 2, -1);
+  }
+
+  @if ($directionPT == $directionPO) {
+    @error "Out Of Bounds! Does the args you passed even make sense to you";
+  }
+
+  // I wan use if astatement wound myself here
+  @if ($directionPO and $directionPT) {
+    @if ($directionPO == "<" and $directionPT == ">") {
+      @media screen and (min-width: get($screen-breakpoints, $pointTwo)) and (max-width: get($screen-breakpoints, $pointOne)) {
+        @content;
+      }
+    }
+    @if ($directionPO == ">" and $directionPT == "<") {
+      @media screen and (min-width: get($screen-breakpoints, $pointOne)) and (max-width: get($screen-breakpoints, $pointTwo)) {
+        @content;
+      }
+    }
+  } @else {
+    @if ($directionPO) {
+      @if (($directionPO) == "<") {
+        @media screen and (max-width: get($screen-breakpoints, $pointOne)) {
+          @content;
+        }
+      }
+      @if (($directionPO) == ">") {
+        @media screen and (min-width: get($screen-breakpoints, $pointOne)) {
+          @content;
+        }
+      }
+    }
+
+    @if ($directionPT) {
+      @if (($directionPT) == "<") {
+        @media screen and (max-width: get($screen-breakpoints, $pointTwo)) {
+          @content;
+        }
+      }
+      @if (($directionPT) == ">") {
+        @media screen and (min-width: get($screen-breakpoints, $pointTwo)) {
+          @content;
+        }
+      }
+    }
+  }
+}

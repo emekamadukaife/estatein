@@ -1,0 +1,39 @@
+$headingRuleMap: (
+  1: (
+    properties: (
+      font-size: get($font-sizes, 100),
+      font-weight: get($font-weights, semiBold),
+      line-height: 1.2,
+    ),
+  ),
+  2: (
+    properties: (
+      font-size: get($font-sizes, 200),
+      font-weight: get($font-weights, semiBold),
+      line-height: 1.5,
+    ),
+  ),
+  3: (
+    properties: (
+      font-size: get($font-sizes, 300),
+      font-weight: get($font-weights, bold),
+      line-height: 1.2,
+    )
+  ),
+  4: (
+    properties: (
+      font-size: get($font-sizes, 400),
+      font-weight: get($font-weights, semiBold),
+      line-height: 1.5,
+    )
+  ),
+  5: (
+    properties: (
+      font-size: get($font-sizes, 500),
+      font-weight: get($font-weights, semiBold),
+      line-height: 1.5,
+    )
+  ),
+);
+
+@include generateCSSRules($headingRuleMap, $nickname: "heading");

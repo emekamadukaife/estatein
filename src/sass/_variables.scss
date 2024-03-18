@@ -1,0 +1,153 @@
+@use "sass:color";
+@use "sass:map";
+
+$prefix: "cm";
+$assetPath: "/";
+// FONTS
+
+$font-family-san-serif: "urbanist";
+$font-family-serif: null;
+
+$font-weights: (
+ regular: 400,
+ mid: 500,
+ semiBold: 600,
+ bold: 700
+);
+
+$font-sizes: (
+ 100: convert(60px),
+ 200: convert(48px),
+ 300: convert(40px),
+ 400: convert(24px),
+ 500: convert(20px),
+ 600: convert(18px),
+ 700: convert(16px)
+);
+
+// COLORS
+
+$white: #fff;
+$black: #000;
+$purple: hsl(257, 92%, 60%);
+$gray: hsl(0, 0%, 8%);
+
+$purple-shades: (
+ 100: $purple,
+ 200: color.change($purple, $lightness: 65%),
+ 300: color.change($purple, $lightness: 70%),
+ 400: color.change($purple, $lightness: 75%),
+ 500: color.change($purple, $lightness: 90%),
+ 600: color.change($purple, $lightness: 95%),
+ 700: color.change($purple, $lightness: 97%),
+ 800: color.change($purple, $lightness: 99%),
+);
+
+$gray-shades: (
+ 100: $gray,
+ 200: color.change($gray, $lightness: 10%),
+ 300: color.change($gray, $lightness: 15%),
+ 400: color.change($gray, $lightness: 20%),
+ 500: color.change($gray, $lightness: 30%),
+ 600: color.change($gray, $lightness: 40%),
+ 700: color.change($gray, $lightness: 50%),
+ 800: color.change($gray, $lightness: 60%),
+);
+
+$white-shades: (
+ 100: hsl(240, 6%, 90%),
+ 200: hsl(240, 8%, 95%),
+ 300: hsl(240, 7%, 97%),
+ 400: hsl(240, 20%, 99%),
+);
+
+$colors: (
+ accent: $purple,
+ secondary: $gray,
+ primary: get($gray-shades, 200),
+ muted: get($gray-shades, 800),
+ enlightened: $white
+);
+
+// TODO - BREAKPOINTS
+
+$screen-breakpoints: (
+ lg: convert(1500px),
+ md: convert(1200px),
+ sm: convert(900px)
+);
+
+$device-breakpoints: (
+ lg: (">md"),
+ md: (">sm"),
+ sm: ("<sm")
+);
+
+// THEME
+
+$border-color: get($gray-shades, 300);
+$border-sm: solid 1px $border-color;
+$border-lg: solid 1.6px $border-color;
+
+// Border Radius
+$curvy-sm: convert(10px);
+$curvy-lg: convert(12px);
+$curvy-pill: 100px; /* or 43px */
+$curvy-circle: 100%;
+
+// Box Shadow
+$shadow-color: get($gray-shades, 300);
+$shadow-lg: 0 0 20px 0 $shadow-color;
+$shadow-lg-inset: inset 0 0 10px 0 $shadow-color;
+$shadow-sm: 0 0 8px 0 $shadow-color;
+$shadow-sm-inset: inset 0 0 8px 0 $shadow-color;
+
+// SPACING
+$s-ratio: 20;
+$spacing: (
+ 1: convert(112px),
+ 2: convert(110px),
+ 3: convert(100px),
+ 4: convert(60px),
+ 5: convert(50px),
+ 6: convert(30px),
+ 7: convert(10px)
+);
+
+$spacing-md: (
+ 1: percentOf(get($spacing, 1), 40),
+ 2: percentOf(get($spacing, 2), $s-ratio),
+ 3: percentOf(get($spacing, 3), $s-ratio),
+ 4: percentOf(get($spacing, 4), $s-ratio),
+ 5: percentOf(get($spacing, 5), $s-ratio),
+ 6: percentOf(get($spacing, 6), $s-ratio),
+ 7: percentOf(get($spacing, 7), $s-ratio)
+);
+
+$spacing-sm: (
+ 1: percentOf(get($spacing-md, 1), $s-ratio),
+ 2: percentOf(get($spacing-md, 2), $s-ratio),
+ 3: percentOf(get($spacing-md, 3), $s-ratio),
+ 4: percentOf(get($spacing-md, 4), $s-ratio),
+ 5: percentOf(get($spacing-md, 5), $s-ratio),
+ 6: percentOf(get($spacing-md, 6), $s-ratio),
+ 7: percentOf(get($spacing-md, 7), 0)
+);
+
+$spacing-css-properties: ();
+@for $i from 1 through length($spacing) {
+ $spacing-css-properties: map.merge($spacing-css-properties, ($i: var(--#{$prefix}-spacing-#{$i * 100})));
+}
+
+// BASE VALUES
+
+$base-font-family: $font-family-san-serif;
+$base-font-weight: get($font-weights, regular);
+$base-line-height: 1.5;
+$base-heading-line-height: 1.2;
+$base-letter-spacing: 0;
+$base-heading-letter-spacing: 0;
+$base-text-color: get($gray-shades, 800);
+$base-font-size: get($font-sizes, 600);
+
+$body-bg: #141414;

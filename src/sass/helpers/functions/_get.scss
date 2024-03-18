@@ -1,0 +1,5 @@
+// Just an easier to read abstraction over the sass map-get function
+
+@function get($map, $property) {
+ @return map-get($map, $property);
+}

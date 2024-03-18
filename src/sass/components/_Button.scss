@@ -1,0 +1,110 @@
+$btn-padding: convert(14px) convert(24px);
+$btn-padding-round: convert(14px);
+$btn-padding-md: convert(10px) convert(20px);
+$btn-padding-round-md: convert(10px);
+$btn-padding-sm: $btn-padding-md;
+$btn-padding-round-sm: $btn-padding-round-md;
+
+$btn-font-size: get($font-sizes, 700);
+$btn-font-weight: get($font-weights, mid);
+
+.btn {
+  --btn-padding: #{$btn-padding};
+  --btn-bg: transparent;
+  --btn-color: #{$white};
+  --btn-border: none;
+
+  display: inline-block;
+  font-size: $btn-font-size;
+  font-weight: $btn-font-weight;
+  text-transform: capitalize;
+  padding: var(--btn-padding);
+  background-color: transparent;
+  border: var(--btn-border);
+  border-radius: $curvy-lg;
+  color: $white;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  cursor: pointer;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 280%;
+    height: 280%;
+    border-radius: 100%;
+    background-color: var(--btn-hover-bg);
+    transform: scale(0%) translate(-50%, -50%);
+    transform-origin: left top;
+    z-index: -1;
+    transition: transform 0.2s ease-in;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    border-radius: inherit;
+    background-color: var(--btn-bg);
+    z-index: -2;
+  }
+
+  &:hover::before {
+    transform: scale(100%) translate(-50%, -50%);
+  }
+
+  // THEMEING
+
+  &#{-primary} {
+    --btn-bg: #{get($colors, accent)};
+    --btn-hover-bg: #{get($colors, primary)};
+  }
+
+  &#{-secondary} {
+    --btn-bg: #{get($colors, primary)};
+    --btn-hover-bg: #{get($colors, accent)};
+  }
+
+  &#{-outline} {
+    --btn-bg: transparent;
+    border: $border-sm;
+    --btn-hover-bg: #{get($colors, primary)};
+  }
+
+  &#{-tertiary} {
+    --btn-bg: #{get($colors, secondary)};
+    border: $border-sm;
+    --btn-hover-bg: #{get($colors, primary)};
+  }
+
+  // THE ORDER HERE IS VERY IMPORTANT
+  // MEDIA QUERY
+
+  @include breakpoint("<lg") {
+   --btn-padding: #{$btn-padding-sm};
+  }
+
+  // UTILITY 
+
+  &--round {
+    border-radius: 100%;
+    --btn-padding: #{btn-padding-round};
+    aspect-ratio: 1/1; 
+    // Prevent Squeezing When Prescent (I can no longer spell present) In Flex Containers 
+    flex-grow: 0;
+    flex-shrink: 0;
+  }
+  
+  &--icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+  }
+}

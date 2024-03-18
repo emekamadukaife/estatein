@@ -1,0 +1,130 @@
+// $ruleMapTemplate: (
+//   ada: (
+//     properties: (
+//       font-size: 100px,
+//     )
+//   ),
+//   adaTest: (
+//     properties: (
+//       font-size: (subname:sm, value: 100px), 200px,
+//     )
+//   ),
+//   obi: (
+//     properties: (
+//       font-size: (150px, 20px, 3px),
+//     )
+//   ),
+//   3: (
+//     properties: (
+//       font-size: 150px,
+//     ),
+// // these are optional
+//     nickname: "m",
+//     delimeter: "--",
+//     precedingSelector: ".section",
+//   ),
+// );
+
+// RULES
+// 1: Follow the template
+// 2: No map in the properties list should other than the first should contain more than a value
+
+@use "sass:list";
+@use "sass:string";
+
+@mixin generateCSSRules($rules, $fluid: false, $nickname: null) {
+  @each $_className, $class in $rules {
+    $responsive: get($class, responsive) or $fluid;
+    $nickname: get($class, nickname) or $nickname;
+    $precedingSelector: get($class, precedingSelector) or "";
+    $properties: get($class, properties);
+    $delimiter: get($class, delimiter) or "-";
+
+    // Sanitize Arguments - First Case
+    @if (type-of($_className) == "number" and not $nickname) {
+      @error "Nickname Property is required on " + $_className + " property of map";
+    }
+
+    // Sanitize Arguments - Second Case
+    @if (list.length($properties) > 1) {
+      @for $i from 2 through list.length($properties) {
+        $type: type-of(list.nth(list.nth($properties, $i), 2));
+
+        @if ($type != "string" and $type != "number") {
+          @error ("Man go to mixins/generateCSSRules and go through the rules at the top of the file");
+        }
+      }
+    }
+
+    $className: $precedingSelector +
+      "." +
+      if(
+        type-of($_className) == "number",
+        $nickname + $delimiter + strip-unit($_className),
+        $_className
+      );
+
+    $firstProp: list.nth($properties, 1);
+    $property: list.nth($firstProp, 1);
+    $value: list.nth($firstProp, 2);
+
+    @if (type-of($value) == "list" or type-of($value) == "map") {
+      @each $val in $value {
+        @if (type-of($val) == "map" or type-of($val) == "list") {
+          @include generateClass(
+            $className + "-" + list.nth($val, 1),
+            map-merge(
+              $properties,
+              (
+                $property:
+                  if(
+                    list.length($val) > 1,
+                    list.nth($val, 2),
+                    list.nth($val, 1)
+                  ),
+              )
+            ), $responsive
+          );
+        } 
+        @if (type-of($val) == "string" or type-of($val) == "number") {
+          @include generateClass(
+            $className + "-" + $val,
+            map-merge(
+              $properties,
+              (
+                $property: $val,
+              )
+            ), $responsive
+          );
+        }
+      }
+    }  
+    @if (type-of($value) == "string" or type-of($value) == "number") {
+      @include generateClass($className, $properties, $responsive);
+    }
+  }
+}
+
+@mixin generateClass($className, $properties, $fluid: null) {
+  #{$className} {
+    @each $property, $value in $properties {
+      @include generateProperty($property, $value);
+    }
+  }
+
+  @if ($fluid) {
+  @each $point, $pointValue in $device-breakpoints {
+    @include breakpoint($pointValue) {
+        #{$className + "-" + $point} {
+          @each $property, $value in $properties {
+            @include generateProperty($property, $value);
+          }
+        }
+      }
+    }
+  }
+}
+
+@mixin generateProperty($property, $value) {
+  #{$property}: #{$value};
+}

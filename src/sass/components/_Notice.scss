@@ -1,0 +1,11 @@
+.notice {
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+
+ padding-block: var(--#{$prefix}-spacing-700);
+
+ background-image: url(#{$assetPath}media/bg/abstract-1.png);
+ background-repeat: no-repeat;
+ background-size: cover;
+}

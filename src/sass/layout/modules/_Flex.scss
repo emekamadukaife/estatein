@@ -1,0 +1,234 @@
+@use "sass:map";
+@use "sass:string";
+.d-flex {
+  display: flex;
+}
+
+.flex {
+  &-center {
+    align-items: center;
+    justify-content: center;
+  }
+
+  &-equal > * {
+    flex: 1;
+    min-width: 50%;
+  }
+  &-column {
+    flex-direction: column;
+  }
+  &-wrap {
+    flex-wrap: wrap;
+  }
+  &-wrap-rev {
+    flex-wrap: wrap-reverse;
+  }
+  &-fill > * {
+    flex: 1;
+  }
+  &-wrap-sm {
+    min-width: get($screen-breakpoints, sm);
+  }
+  &-wrap-md {
+    min-width: get($screen-breakpoints, md);
+  }
+}
+
+$flexRuleMap: (
+  align: (
+    properties: (
+      align-items: (
+        center,
+        start,
+        end,
+      ),
+    ),
+  ),
+  justify: (
+    properties: (
+      justify-content: (
+        start,
+        end,
+        center,
+        space-between,
+        space-evenly,
+        space-around,
+      ),
+    ),
+  ),
+);
+@include generateCSSRules($flexRuleMap, $fluid: true);
+
+$spacingRuleMap: (
+  pl: (
+    properties: (
+      padding-left: ($spacing-css-properties),
+    ),
+  ),
+  p: (
+    properties: (
+      padding: ($spacing-css-properties),
+    ),
+  ),
+  m: (
+    properties: (
+      margin: ($spacing-css-properties),
+    ),
+  ),
+);
+@include generateCSSRules($spacingRuleMap, $fluid: true);
+
+$miscRuleMap: (
+  curvy: (
+    properties: (
+      border-radius: (
+        sm: $curvy-sm,
+        lg: $curvy-lg,
+      ),
+    ),
+  ),
+  shadow: (
+    properties: (
+      box-shadow: (
+        sm: $shadow-sm,
+        lg: $shadow-lg,
+      ),
+    ),
+  ),
+  overflow: (
+    properties: (
+      overflow: (
+        hide: hidden,
+        scroll: scroll,
+      ),
+    ),
+  ),
+  "": (
+    properties: (
+      visibility: (
+        hide: hidden,
+        scroll: scroll,
+      ),
+    ),
+    delimiter: "",
+  ),
+);
+@include generateCSSRules($miscRuleMap);
+
+$textRuleMap: (
+  color: (
+    properties: (
+      color: $colors,
+    ),
+  ),
+  text-align: (
+    properties: (
+      text-align: (
+        left,
+        right,
+        center,
+      ),
+    ),
+  ),
+  text-decorate: (
+    properties: (
+      text-decoration: (
+        underline,
+        none,
+      ),
+    )
+  ),
+  text: (
+    properties: (
+      text-transform: (
+          uppercase,
+          capitalize,
+          lowercase,
+        ),
+    )
+  )
+);
+@include generateCSSRules($textRuleMap);
+
+$colorsHover: ();
+@each $code, $color in $colors {
+  $colorsHover: map.merge($colorsHover, (#{$code}+ ":hover": $color));
+}
+
+$bgRuleMap: (
+  bg: (
+    properties: (
+      background-color: $colors,
+    )
+  ),
+  hover: (
+    properties: (
+      background-color: $colorsHover
+    )
+  ),
+);
+@include generateCSSRules($bgRuleMap);
+// @each $property, $definition in $text-map {
+//   $className: map-get($definition, nickname);
+//   $values: map-get($definition, values);
+
+//   @each $key, $value in $values {
+//     @if ($value) {
+//       .#{$className}-#{$key} {
+//         #{$property}: $value;
+//       }
+//     } @else {
+//       .#{$className}-#{$key} {
+//         #{$property}: $key;
+//       }
+//     }
+//   }
+// }
+
+// @each $property, $definition in $backgrounds-map {
+//   $className: map-get($definition, nickname);
+//   $values: map-get($definition, values);
+
+//   @each $key, $value in $values {
+//     @if ($value) {
+//       .#{$className}-#{$key} {
+//         #{$property}: $value;
+//       }
+//     } @else {
+//       .#{$className}-#{$key} {
+//         #{$property}: $key;
+//       }
+//     }
+//   }
+// }
+
+// @each $property, $definition in $utility {
+//   $className: map-get($definition, nickname);
+//   $values: map-get($definition, values);
+
+//   @each $key, $value in $values {
+//     @if ($value) {
+//       .#{$className}-#{$key} {
+//         #{$property}: $value;
+//       }
+//     } @else {
+//       .#{$className}-#{$key} {
+//         #{$property}: $key;
+//       }
+//     }
+//   }
+// }
+
+// @each $property, $definition in $heading-map {
+//   $className: heading;
+
+//   .#{$className}-#{$property} {
+//     @each $styleName, $style in $definition {
+//       #{$styleName}: #{$style};
+//     }
+//   }
+// }
+
+.heading {
+  @extend .color-enlightened !optional;
+}

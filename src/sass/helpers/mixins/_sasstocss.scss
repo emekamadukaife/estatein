@@ -1,0 +1,3 @@
+@mixin sasstocss ($name, $value) {
+  --#{$prefix}-spacing-#{$name}: #{$value};
+}

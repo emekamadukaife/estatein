@@ -1,0 +1,26 @@
+@use "sass:math";
+@use "sass:string";
+@use "math/init" as cmMath;
+
+@function convert($value, $unit: "em") {  
+  @if (type-of($value) == "string") {
+      @error "@args $value must be a number";
+  }
+ 
+  $unit: string.to-lower-case($unit);
+  @if ($unit != "rem" and $unit != "em") {
+    @error "@args $unit must be either rem or em";
+  }
+  $unit: if($unit == "rem", 1rem, 1em);
+  
+  $divisor: 18; 
+  @if (math.unit($value) == "rem" or math.unit($value) == "em") {
+    $divisor: 1;
+  }
+  
+  $result: math.div(strip-unit($value), $divisor);
+  // @return math.div(round($result * 1000), 1000) * $unit;
+  @return cmMath.round($result) * $unit;
+}
+
+

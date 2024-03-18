@@ -1,0 +1,15 @@
+@use "sass:math";
+@use "round" as fn;
+@use "strip-unit";
+
+// @param $value (a number, could have units)
+// @param $percent (a number, must be unitless)
+
+@function percentOf($value, $percent) {
+ @if(type-of($value) != "number" or type-of($percent) != "number") {
+  @error "Invalid Args";
+ }
+
+ $result: $value - $value * math.div($percent, 100);
+ @return convert(fn.round(strip-unit($result)) * ($result*0+1), math.unit($result));
+}

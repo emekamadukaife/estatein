@@ -1,0 +1,26 @@
+.card {
+ --#{$prefix}-card-padding: var(--#{$prefix}-spacing-700);
+ --#{$prefix}-card-bg: #{(get($colors, primary))};
+ --#{$prefix}-card-radius: #{$curvy-sm};
+ --#{$prefix}-card-border: #{$border-sm};
+
+ padding: var(--#{$prefix}-card-padding);
+ background-color: var(--#{$prefix}-card-bg);
+ border: var(--#{$prefix}-card-border);
+ border-radius: var(--#{$prefix}-card-radius);
+ 
+ &--link {
+  background-image: url(/media/icons/external-link.svg);
+  background-repeat: no-repeat;
+  background-position: 95% 10%;
+  background-clip: padding;
+ }
+
+ &--sm {
+  min-width: 200px;
+ }
+
+  &--xs {
+  min-width: 100px;
+ }
+}

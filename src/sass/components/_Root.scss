@@ -1,0 +1,27 @@
+:root {
+  @each $key, $space in $spacing {
+    @include sasstocss(#{$key * 100}, $space);
+  }
+
+  --body-bg: #{$body-bg};
+  --text-color: #{$base-text-color};
+  --section-spacing: var(--#{$prefix}-spacing-100);
+  --section-spacing-sm: var(--#{$prefix}-spacing-800);
+}
+
+@include breakpoint(">md", "<lg") {
+  :root {
+    @each $key, $space in $spacing-md {
+      @include sasstocss(#{$key * 100}, $space);
+    }
+  }
+}
+
+@include breakpoint("<md") {
+  :root {
+    @each $key, $space in $spacing-sm {
+      @include sasstocss(#{$key * 100}, $space);
+    }
+  }
+}
+

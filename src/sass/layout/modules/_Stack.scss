@@ -1,0 +1,16 @@
+// Stack Module
+// Spaces Direct Descendants Of An Element On Which It Is Applied, Vertically
+
+.stack {
+ --#{$prefix}-stack-gap: #{var(--#{$prefix}-spacing-200)};
+}
+
+.stack > * + * {
+ margin-block-start: var(--#{$prefix}-stack-gap);
+}
+
+@each $key, $_ in $spacing {
+ .stack-#{$key * 100} {
+  --#{$prefix}-stack-gap: var(--#{$prefix}-spacing-#{$key * 100});
+ }
+}

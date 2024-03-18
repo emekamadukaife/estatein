@@ -1,0 +1,11 @@
+@use "sass:math";
+
+// @param $num must be unitless
+
+@function round($num, $decimalPlaces: 3){
+  @if(math.unit($num) != "") {
+     @error "The Argument $Number Must Be A Unitless Number";
+  }
+  
+  @return math.div(math.round($num * math.pow(10, $decimalPlaces)), math.pow(10, $decimalPlaces));
+}

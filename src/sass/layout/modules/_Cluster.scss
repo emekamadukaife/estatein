@@ -1,0 +1,14 @@
+// Cluster
+// Adds Horizontal Spacing To A Cluster Of Elements
+// PREREQUISTE: The element on which the cluster class is being applied to must be a flex container
+
+.cluster {
+ --#{$prefix}-cluster-gap: var(--#{$prefix}-spacing-200);
+ gap: var(--#{$prefix}-cluster-gap);
+}
+
+@each $key, $_ in $spacing {
+ .cluster-#{$key * 100} {
+  --#{$prefix}-cluster-gap: var(--#{$prefix}-spacing-#{$key * 100});
+ }
+}

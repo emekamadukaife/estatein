@@ -1,0 +1,38 @@
+@import "breakpoint";
+@import "sasstocss";
+@import "generateCSSRules";
+
+$ruleMapTemplate: (
+  ada: (
+    properties: (
+      font-size: 100px,
+    ),
+    responsive: true,
+  ),
+  obi: (
+    properties: (
+      font-size: 150px,
+    ),
+    responsive: true,
+  ),
+  3: (
+    properties: (
+     font-size: (
+      (
+       subname: sm,
+       value: 150px,
+       ),
+       10px,
+       20px,
+       90px,
+       ),
+       align-center: right
+    ),
+    responsive: true,
+    nickname: "hjd",
+    delimiter: "--",
+    precedingSelector: ".section",
+  ),
+);
+
+// @include generateCSSRule($ruleMapTemplate);

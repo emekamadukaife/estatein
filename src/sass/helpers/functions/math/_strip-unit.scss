@@ -1,0 +1,13 @@
+@use "sass:math";
+
+@function strip-unit($number) {
+  @if(type-of($number) != "number") {
+    @error "@args $number must be a number";
+  }
+
+  @if (math.is-unitless($number)) {
+    @return $number;
+  }
+
+  @return math.div($number, ($number * 0 + 1))
+}
