@@ -1,0 +1,66 @@
+$spacingRuleMap: (
+  pl: (
+    properties: (
+      padding-left: ($spacing-css-properties),
+    ),
+  ),
+  p: (
+    properties: (
+      padding: ($spacing-css-properties),
+    ),
+  ),
+  m: (
+    properties: (
+      margin: ($spacing-css-properties),
+    ),
+  ),
+   mt: (
+    properties: (
+      margin-top: ($spacing-css-properties),
+    ),
+  ),
+);
+
+$miscRuleMap: (
+  curvy: (
+    properties: (
+      border-radius: (
+        sm: $curvy-sm,
+        lg: $curvy-lg,
+      ),
+    ),
+  ),
+  shadow: (
+    properties: (
+      box-shadow: (
+        sm: $shadow-sm,
+        lg: $shadow-lg,
+      ),
+    ),
+  ),
+  overflow: (
+    properties: (
+      overflow: (
+        hide: hidden,
+        scroll: scroll,
+      ),
+    ),
+  ),
+  visible: (
+    properties: (
+      visibility: (
+        hide: hidden,
+        scroll: scroll,
+      ),
+    ),
+  ),
+  d-none: (
+    properties: (
+      display: none,
+    ),
+    responsive: true
+  ),
+);
+
+@include generateCSSRules($miscRuleMap);
+@include generateCSSRules($spacingRuleMap, $fluid: true);

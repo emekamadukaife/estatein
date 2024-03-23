@@ -1,10 +1,57 @@
 import Button from "./Button";
-// import {FaArrowLeft, FaArrowRight} from "react-icons/fa";
+import Paginate from "./Paginate";
+import { useRef } from "react";
 import PropTypes from "prop-types";
 
-export default function Section({ title, description, children = null, button, styled = true }) {
+const data = [
+  {
+    title: "How do I search for properties on Estatein?",
+    description:
+      "Learn how to use our user-friendly search tools to find properties that match your criteria.",
+    buttonText: "Read More",
+  },
+  {
+    title: "How do I search for properties on Estatein?",
+    description:
+      "What documents do I need to sell my property through Estatein?",
+    buttonText: "Read More",
+  },
+  {
+    title: "How can I contact an Estatein agent?",
+    description:
+      "Discover the different ways you can get in touch with our experienced agents.",
+    buttonText: "Read More",
+  },
+];
+
+// {
+//   title,
+//   description,
+//   children = null,
+//   button,
+//   styled = true,
+// }
+
+function getVisibleElements() {
+  
+}
+export default function Section() {
+  const toPaginate = useRef(null);
+
+
+  const foward = () => {};
+
+  const seeMoreButton = (
+    <Button
+      variant="secondary"
+      utilityClasses="d-none-sm"
+      onClick={getVisibleElements}
+    >
+      View all FAQ's
+    </Button>
+  );
   return (
-    <section className="section section--inline">
+    <section className="section stack stack-500">
       {/* Header */}
       <div className="d-flex align-center justify-space-between cluster cluster-200">
         <div className="">
@@ -15,37 +62,42 @@ export default function Section({ title, description, children = null, button, s
             and assist you every step of the way.
           </p>
         </div>
-        <Button variant="secondary">View all FAQ's</Button>
+        {seeMoreButton}
       </div>
 
       {/* Body */}
-      <div className="">{children}</div>
+      <div className="section_body ">
+        <div
+          className="d-flex cluster cluster-600 flex-fill overflow-hide"
+          ref={toPaginate}
+        >
+          {data.map(({ title, description, buttonText }, i) => {
+            return (
+              <div
+                className="card card--flush p-6"
+                style={{ minWidth: "100%" }}
+                key={i}
+              >
+                <h3 className="heading heading-4">{title}</h3>
+                <p>{description}</p>
 
-      {/* Paginate */}
-      <div className="">
-        <div className="">
-          <Button></Button>
-
-          {/* Pagination */}
-          <div className="d-flex cluster cluster-700 align-center">
-            <Button
-              variant="secondary"
-              utilityClasses="btn--icon btn--round w-35px h-35px"
-            >
-              {/* <FaArrowLeft /> */}
-            </Button>
-            <div className="">
-              <span className="">10</span> of 10
-            </div>
-            <Button
-              variant="secondary"
-              utilityClasses="btn--icon btn--round w-35px h-35px"
-            >
-              {/* <FaArrowRight /> */}
-            </Button>
-          </div>
+                <div className="card_footer">
+                  <Button variant="secondary">{buttonText}</Button>
+                </div>
+              </div>
+            );
+          })}
         </div>
-      </div>  
+      </div>
+
+      <div className="section_footer d-flex align-center justify-space-between">
+        {/* More Button */}
+        <Button variant="secondary" utilityClasses="d-none-md">
+          View all FAQ's
+        </Button>
+
+        <Paginate />
+      </div>
     </section>
   );
 }
@@ -55,5 +107,5 @@ Section.propTypes = {
   description: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
   styled: PropTypes.bool,
-  button: PropTypes.object
+  button: PropTypes.object,
 };

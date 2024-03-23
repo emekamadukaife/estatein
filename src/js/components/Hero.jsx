@@ -1,28 +1,30 @@
 import Button from "./Button";
 import heroImage from "/media/images/hero.png";
-import cardIconOne from "/media/icons/cardOne.svg"
-import cardIconTwo  from "/media/icons/cardTwo.svg";
-import cardIconThree from "/media/icons/cardThree.svg";
-import cardIconFour from "/media/icons/cardFour.png";
+import cardIcon1 from "/media/icons/cardOne.svg";
+import cardIcon2 from "/media/icons/cardTwo.svg";
+import cardIcon3 from "/media/icons/cardThree.svg";
+import cardIcon4 from "/media/icons/cardFour.png";
 
-const data = [
-  "200+ happy customers",
-  "10k+ properties for clients",
-  "16+ years of experience",
-];
-
-const cardsData = [
-  [cardIconOne, "find your dream home"],
-  [cardIconTwo, "Unlock property value"],
-  [cardIconThree, "Effortless property management"],
-  [cardIconFour, "smart investments, informed decisions"]
-]
+const data = {
+  flashCards: [
+    "200+ happy customers",
+    "10k+ properties for clients",
+    "16+ years of experience",
+  ],
+  cards: [
+    "find your dream home",
+    "Unlock property value",
+    "Effortless property management",
+    "smart investments, informed decisions",
+  ],
+  icons: [
+    cardIcon1, cardIcon2, cardIcon3, cardIcon4
+  ]
+};
 
 export default function Hero() {
-
-
   return (
-    <section className="hero_container section section--left-md">
+    <section className="hero_container section">
       <div className="hero d-flex flex-center flex-equal">
         <div className="hero_slideOne stack stack-600">
           <div className="stack stack-700">
@@ -43,7 +45,7 @@ export default function Hero() {
           </div>
 
           <div className="d-flex flex-wrap flex-fill cluster cluster-700">
-            {data.map((data, i) => {
+            {data.flashCards.map((data, i) => {
               const [headingText, ...text] = data.split(" ");
 
               return (
@@ -61,21 +63,21 @@ export default function Hero() {
           className="hero_slideTwo overflow-hide"
           style={{ "--bg-image": `url(${heroImage})` }}
         >
-          <img src={heroImage} alt="" />
+          <img src={heroImage} alt="" width="100%" height="100%" />
         </div>
       </div>
 
-      <div className="section--flush-left-md border-sm d-flex flex-fill flex-wrap shadow-lg cluster cluster-700 p-7">
-        {cardsData.map((data, i) => {
+      <div className="section--fw-sm border-sm d-flex flex-fill flex-wrap shadow-lg cluster cluster-700 p-7 mt-5-sm">
+        {data.cards.map((text, i) => {
           return (
             <a href="" className="text-decorate-none " key={i}>
               <div className="card card--sm card--link d-flex flex-center hover-secondary flex-column cluster-500 h-100">
                 <div className="card_header">
-                  <img src={data[0]} alt="" />
+                  <img src={data.icons[i]} alt="" />
                 </div>
                 <div className="card_body">
                   <p className="text-capitalize heading text-align-center">
-                    {data[1]}
+                    {text}
                   </p>
                 </div>
               </div>

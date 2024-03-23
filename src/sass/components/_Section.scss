@@ -2,96 +2,49 @@
 // only controls the padding on elements, margin is controlled by niggas in the layout/modules folder
 $deviceBreakpoints: (lg: ">md", md: ">sm",sm: "<sm");
 
-$regularStyleMap: (
-  property: padding,
-  value: var(--section-spacing),
-  responsive: true,
+
+$sectionRuleMap: (
+  section--fw: (
+    properties: (
+      margin-inline: "calc(var(--section-spacing) * -1)"
+    ),
+    responsive: true,
+    precedingSelector: ".section "
+  ),
+  section--reset: (
+    properties: (
+      padding: 0
+    ),
+    responsive: true,
+  ),
 );
 
-$flushStyleMap: map-merge(
-  $regularStyleMap,
-  (
-    property: margin,
-    value: calc(var(--section-spacing) * -1),
-  )
-);
-
-$resetStyleMap: map-merge(
-  $regularStyleMap,
-  (
-    value: 0,
-  )
-);
-
-$classes: (
-  inline,
-  right,
-  left,
-  top,
-  bottom,
-  "*left",
-  "*right",
-  "*top",
-  "*bottom",
-  "+left",
-  "+right",
-  "+top",
-  "+bottom"
-);
+@include generateCSSRules($sectionRuleMap);
 
 .section {
+  padding-inline: var(--section-spacing);
   @include breakpoint("<sm") {
     --section-spacing: var(--#{$prefix}-spacing-600);
   }
+  
+  &_footer {
+    width: 100%;
+    border-top: $border-sm;
+    padding-block: var(--#{$prefix}-spacing-500);
+  }
+}
 
-  @each $class, $value in $classes {
-    $type: normal;
-    $firstLetterOfClass: string.slice($class, 1, 1);
-    $useMap: $regularStyleMap;
+.paginate {
+  position: relative;
+  width: 100%;
 
-    // Computes the type of operation to do based off the first letter
-    @if ($firstLetterOfClass == "+") {
-      $type: flush;
-      $class: string.slice($class, 2, -1);
-    } @else if($firstLetterOfClass == "*") {
-      $type: reset;
-      $class: string.slice($class, 2, -1);
-    }
-
-    // Computes the styleMap to use based off the type of operation
-    @if ($value) {
-      $useMap: $value;
-    } @else {
-      $useMap: if(
-        $type == "normal",
-        $regularStyleMap,
-        if(
-          $type == "reset",
-          $resetStyleMap,
-          if($type == "flush", $flushStyleMap, null)
-        )
-      );
-    }
-
-    @if ($useMap == null) {
-      @error "What d fuck you doing not following the rules?";
-    }
-
-    $property: get($useMap, property);
-    $value: get($useMap, value);
-    $responsive: get($useMap, responsive);
-
-    &--#{if($type != "normal", $type + "-", null) + $class} {
-      #{$property}-#{$class}: $value;
-      @if ($responsive == true) {
-        @each $point, $pointValue in $deviceBreakpoints {
-          &-#{$point} {
-            @include breakpoint($pointValue) {
-              #{$property}-#{$class}: $value;
-            }
-          }
-        }
-      }
+  @include breakpoint(">sm") {
+  justify-content: end;
+  &_counter {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
     }
   }
 }

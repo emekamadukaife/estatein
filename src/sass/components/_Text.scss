@@ -1,0 +1,34 @@
+$textRuleMap: (
+  color: (
+    properties: (
+      color: $colors,
+    ),
+  ),
+  text-align: (
+    properties: (
+      text-align: (
+        left,
+        right,
+        center,
+      ),
+    ),
+  ),
+  text-decorate: (
+    properties: (
+      text-decoration: (
+        underline,
+        none,
+      ),
+    )
+  ),
+  text: (
+    properties: (
+      text-transform: (
+          uppercase,
+          capitalize,
+          lowercase,
+        ),
+    )
+  )
+);
+@include generateCSSRules($textRuleMap);

@@ -6,7 +6,7 @@ export default function Notice() {
 
 
   return isOpen ? (
-    <div className="notice section section--inline">
+    <div className="notice section">
       {/* An anonymous div */}
       <div></div>
       <span className="color-enlightened">

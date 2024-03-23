@@ -36,4 +36,8 @@ $headingRuleMap: (
   ),
 );
 
+.heading {
+  @extend .color-enlightened !optional;
+}
+
 @include generateCSSRules($headingRuleMap, $nickname: "heading");

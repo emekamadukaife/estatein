@@ -1,0 +1,20 @@
+@use "sass:map";
+$colorsHover: ();
+@each $code, $color in $colors {
+  $colorsHover: map.merge($colorsHover, (#{$code}+ ":hover": $color));
+}
+
+$bgRuleMap: (
+  bg: (
+    properties: (
+      background-color: $colors,
+    )
+  ),
+  hover: (
+    properties: (
+      background-color: $colorsHover
+    )
+  ),
+);
+
+@include generateCSSRules($bgRuleMap);

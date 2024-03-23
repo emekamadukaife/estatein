@@ -2,9 +2,27 @@
 
 @import "Reboot";
 @import "Root";
+@import "Heading";
+@import "Colors";
+@import "Text";
 @import "Section";
 @import "Button";
 @import "Header";
-@import "Heading";
 @import "Notice";
 @import "Card";
+
+@import "Utility";
+// @import "Colors";
+// @import "Colors";
+// @import "Colors";
+
+$miscRuleMap: (
+  d-none: (
+    properties: (
+      display: none,
+    ),
+    responsive: true
+  ),
+);
+
+@include generateCSSRules($miscRuleMap);
